@@ -9,6 +9,13 @@ Renaming or moving sfc.exe causes it to not output any text. Because of this, I'
 
 The deployment script also manages permissions. sfc.bat and sfc1.exe both have their ACLs set to owner:TrustedInstaller and with the default System32 Permissions.
 
+# Manual Deployment:
+
+1. Put sfc.bat into C:\Windows\System32
+2. Set the owner of sfc.exe to Administrators and Allow Administrators Full Control
+3. Rename sfc.exe to sfc1.exe
+4. Ideally change the permissions back to normal
+
 # Notes:
 This script could be made much simpler by changing the PATHEXT environment variable to prioritize .bat over .exe, allowing for an unmodified/unrenamed sfc.exe, which would make sfc.exe output text correctly. However, this would be a permanent change to the system, and ontop of that, if a user were to run sfc.exe /scannow, it would bypass the script.
 
