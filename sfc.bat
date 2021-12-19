@@ -7,7 +7,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 CMD /c "exit /b 0"
 NET session > NUL 2>&1
 IF %ERRORLEVEL% GTR 0 (
-
+	
+	ECHO.
 	ECHO You must be an administrator running a console session in order to
 	ECHO use the sfc utility.
 		
@@ -20,7 +21,7 @@ IF %ERRORLEVEL% GTR 0 (
 	
 	CMD /c "exit /b 0"
 	SET checkString=/scannow
-	ECHO %* | FIND /i %checkString% > NUL 2>&1
+	ECHO "%*" | FIND /i "%checkString%" > NUL 2>&1
 	IF %ERRORLEVEL% EQU 0 (
 		
 		ECHO.
@@ -47,7 +48,7 @@ IF %ERRORLEVEL% GTR 0 (
 	
 	CMD /c "exit /b 0"
 	SET checkString=/verifyonly
-	IF /i %*==%checkString% (
+	IF /i "%*"=="%checkString%" (
 
 		ECHO.
 		ECHO Beginning system scan.  This process will take some time.
@@ -67,7 +68,7 @@ IF %ERRORLEVEL% GTR 0 (
 
 		GOTO :EOF
 	) ELSE (
-		GOTO incorrectSyntaxEmulation
+		GOTO incorrectSyntaxMessage
 	)
 
 :incorrectSyntaxMessage
@@ -76,6 +77,7 @@ IF %ERRORLEVEL% GTR 0 (
 	sfc1 %*
 	IF %ERRORLEVEL% GTR 0 (
 
+	ECHO.
 	ECHO Microsoft ^(R^) Windows ^(R^) Resource Checker Version 6.0
 	ECHO Copyright ^(C^) Microsoft Corporation. All rights reserved.
 	ECHO.
@@ -112,16 +114,14 @@ IF %ERRORLEVEL% GTR 0 (
 
 :grabCBSInfo
 	
-	CMD /c "exit /b 0"
-	SET checkString="Could not reproject"
+
+
 	SET count=1
 	FOR /F "tokens=2 delims=]" %%a IN ('powershell -command "Get-Content '%SYSTEMROOT%\Logs\CBS\CBS.log' -tail 3"') DO (
-
 		SET var!count!=%%a
 		SET /a count=!count!+1
-		GOTO noViolationProcedure
 	)
-	
+	GOTO noViolationProcedure
 
 :noViolationProcedure
 
@@ -133,18 +133,19 @@ IF %ERRORLEVEL% GTR 0 (
 
 		GOTO :EOF
 	) ELSE (
-		GOTO foundViolationProcedure
+	GOTO foundViolationProcedure
 	)
 
 :foundViolationProcedure
-	CMD /c "exit /b 0"
+	
+CMD /c "exit /b 0"
 	SET checkString=reproject
 	ECHO %var1% | FIND /i "%checkString%" > NUL 2>&1
 	IF %ERRORLEVEL% EQU 0 (
 
 		ECHO Windows Resource Protection found integrity violations.
 		ECHO For online repairs, details are included in the CBS log file located at
-        ECHO windir^\Logs^\CBS\CBS.log. For example C^:^\Windows^\Logs^\CBS^\CBS.log. For offline
+        	ECHO windir^\Logs^\CBS\CBS.log. For example C^:^\Windows^\Logs^\CBS^\CBS.log. For offline
 		ECHO repairs, details are included in the log file provided by the ^/OFFLOGFILE flag.
 
 		GOTO :EOF
@@ -158,9 +159,11 @@ IF %ERRORLEVEL% GTR 0 (
 TAKEOWN /f %SYSTEMROOT%\System32\sfc1.exe /a > NUL 2>&1
 ICACLS %SYSTEMROOT%\System32\sfc1.exe /grant Administrators:F > NUL 2>&1
 REN %SYSTEMROOT%\System32\sfc1.exe sfc.exe > NUL 2>&1
+
 :: Copy ACL from diskmgmt.msc to sfc.exe. Essentially resetting sfc.exe's ACL.
 POWERSHELL -command "Get-Acl %SYSTEMROOT%\System32\diskmgmt.msc | Set-Acl %SYSTEMROOT%\System32\sfc.exe" > NUL 2>&1
 sfc %*
+
 :: Self-destruction
 TAKEOWN /f %SYSTEMROOT%\System32\sfc.bat /a > NUL 2>&1
 ICACLS %SYSTEMROOT%\System32\sfc.bat /grant Administrators:F > NUL 2>&1
