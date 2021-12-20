@@ -1,6 +1,6 @@
 @ECHO OFF
 SETLOCAL ENABLEDELAYEDEXPANSION
-
+GOTO unknownResults
 :: This script is to prevent users from unknowingly entering sfc /scannow
 :: and causing de-amelioration
 
@@ -154,8 +154,15 @@ CMD /c "exit /b 0"
 		GOTO :EOF
 		
 		) ELSE (
-		GOTO :EOF
+		:: This will most likely never happen
+		GOTO :unknownResults
 		)
+
+:unknownResults
+
+ECHO Cannot output results. See %HOMEDRIVE%\Windows^\Logs^\CBS^\CBS.log for more details.
+
+GOTO :EOF
 
 :scannowProcedure+SelfDestruction
 :: This will cause sfc.bat to no longer function, unless sfc.bat is specified.
