@@ -13,6 +13,7 @@ IF %ERRORLEVEL% GTR 0 (
 	ECHO use the sfc utility.
 		
 	GOTO :EOF
+
 ) ELSE (
 	GOTO checkScannow
 )
@@ -45,8 +46,7 @@ IF %ERRORLEVEL% GTR 0 (
 	)
 
 :verifyOnlyProcedure
-	
-	CMD /c "exit /b 0"
+
 	SET checkString=/verifyonly
 	IF /i "%*"=="%checkString%" (
 
@@ -67,6 +67,7 @@ IF %ERRORLEVEL% GTR 0 (
 		ECHO repairs, details are included in the log file provided by the ^/OFFLOGFILE flag.
 
 		GOTO :EOF
+
 	) ELSE (
 		GOTO incorrectSyntaxMessage
 	)
@@ -77,37 +78,38 @@ IF %ERRORLEVEL% GTR 0 (
 	sfc1 %*
 	IF %ERRORLEVEL% GTR 0 (
 
-	ECHO.
-	ECHO Microsoft ^(R^) Windows ^(R^) Resource Checker Version 6.0
-	ECHO Copyright ^(C^) Microsoft Corporation. All rights reserved.
-	ECHO.
-	ECHO Scans the integrity of all protected system files and replaces incorrect versions with
-	ECHO correct Microsoft versions.
-	ECHO.
-	ECHO SFC ^[^/SCANNOW^] ^[^/VERIFYONLY^] ^[^/SCANFILE^=^<file^>^] ^[^/VERIFYFILE^=^<file^>]
-	ECHO     ^[^/OFFWINDIR^=^<offline windows directory^> ^/OFFBOOTDIR^=^<offline boot directory^> ^[^/OFFLOGFILE^=^<log file path^>^]^]
-	ECHO. 
-	ECHO ^/SCANNOW        Scans integrity of all protected system files and repairs files with
-	ECHO                 problems when possible.
-	ECHO ^/VERIFYONLY     Scans integrity of all protected system files. No repair operation is
-	ECHO                 performed.
-	ECHO ^/SCANFILE       Scans integrity of the referenced file, repairs file if problems are
-	ECHO                 identified. Specify full path ^<file^>
-	ECHO ^/VERIFYFILE     Verifies the integrity of the file with full path ^<file^>.  No repair
-	ECHO                 operation is performed.
-	ECHO ^/OFFBOOTDIR     For offline repair, specify the location of the offline boot directory
-	ECHO ^/OFFWINDIR      For offline repair, specify the location of the offline windows directory
-	ECHO ^/OFFLOGFILE     For offline repair, optionally enable logging by specifying a log file path
-	ECHO. 
-	ECHO e.g.
-	ECHO. 
-	ECHO         sfc ^/SCANNOW
-	ECHO         sfc ^/VERIFYFILE^=c^:^\windows^\system32^\kernel32.dll
-	ECHO         sfc ^/SCANFILE^=d^:^\windows^\system32^\kernel32.dll ^/OFFBOOTDIR^=d^:^\ ^/OFFWINDIR^=d^:^\windows
-	ECHO         sfc ^/SCANFILE^=d^:^\windows^\system32^\kernel32.dll ^/OFFBOOTDIR^=d^:^\ ^/OFFWINDIR^=d^:^\windows ^/OFFLOGFILE^=c^:^\log.txt
-	ECHO         sfc ^/VERIFYONLY
+		ECHO.
+		ECHO Microsoft ^(R^) Windows ^(R^) Resource Checker Version 6.0
+		ECHO Copyright ^(C^) Microsoft Corporation. All rights reserved.
+		ECHO.
+		ECHO Scans the integrity of all protected system files and replaces incorrect versions with
+		ECHO correct Microsoft versions.
+		ECHO.
+		ECHO SFC ^[^/SCANNOW^] ^[^/VERIFYONLY^] ^[^/SCANFILE^=^<file^>^] ^[^/VERIFYFILE^=^<file^>]
+		ECHO     ^[^/OFFWINDIR^=^<offline windows directory^> ^/OFFBOOTDIR^=^<offline boot directory^> ^[^/OFFLOGFILE^=^<log file path^>^]^]
+		ECHO. 
+		ECHO ^/SCANNOW        Scans integrity of all protected system files and repairs files with
+		ECHO                 problems when possible.
+		ECHO ^/VERIFYONLY     Scans integrity of all protected system files. No repair operation is
+		ECHO                 performed.
+		ECHO ^/SCANFILE       Scans integrity of the referenced file, repairs file if problems are
+		ECHO                 identified. Specify full path ^<file^>
+		ECHO ^/VERIFYFILE     Verifies the integrity of the file with full path ^<file^>.  No repair
+		ECHO                 operation is performed.
+		ECHO ^/OFFBOOTDIR     For offline repair, specify the location of the offline boot directory
+		ECHO ^/OFFWINDIR      For offline repair, specify the location of the offline windows directory
+		ECHO ^/OFFLOGFILE     For offline repair, optionally enable logging by specifying a log file path
+		ECHO. 
+		ECHO e.g.
+		ECHO. 
+		ECHO         sfc ^/SCANNOW
+		ECHO         sfc ^/VERIFYFILE^=c^:^\windows^\system32^\kernel32.dll
+		ECHO         sfc ^/SCANFILE^=d^:^\windows^\system32^\kernel32.dll ^/OFFBOOTDIR^=d^:^\ ^/OFFWINDIR^=d^:^\windows
+		ECHO         sfc ^/SCANFILE^=d^:^\windows^\system32^\kernel32.dll ^/OFFBOOTDIR^=d^:^\ ^/OFFWINDIR^=d^:^\windows ^/OFFLOGFILE^=c^:^\log.txt
+		ECHO         sfc ^/VERIFYONLY
 
-	GOTO :EOF
+		GOTO :EOF
+
 	) ELSE (
 	GOTO grabCBSInfo
 	)
@@ -132,6 +134,7 @@ IF %ERRORLEVEL% GTR 0 (
 		ECHO Windows Resource Protection did not find any integrity violations.
 
 		GOTO :EOF
+
 	) ELSE (
 	GOTO foundViolationProcedure
 	)
@@ -145,10 +148,11 @@ CMD /c "exit /b 0"
 
 		ECHO Windows Resource Protection found integrity violations.
 		ECHO For online repairs, details are included in the CBS log file located at
-        	ECHO windir^\Logs^\CBS\CBS.log. For example C^:^\Windows^\Logs^\CBS^\CBS.log. For offline
+        ECHO windir^\Logs^\CBS\CBS.log. For example C^:^\Windows^\Logs^\CBS^\CBS.log. For offline
 		ECHO repairs, details are included in the log file provided by the ^/OFFLOGFILE flag.
 
 		GOTO :EOF
+		
 		) ELSE (
 		GOTO :EOF
 		)

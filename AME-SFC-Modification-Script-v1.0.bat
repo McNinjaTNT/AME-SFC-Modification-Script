@@ -4,12 +4,14 @@ NET session > NUL 2>&1
 IF %ERRORLEVEL% LSS 1 (
 GOTO menu
 ) ELSE (
+
 ECHO.
 ECHO  :: WINDOWS 10 AME SFC Modification Deployment Script
 ECHO.
 ECHO     You must run this script as Administrator
 ECHO.
 ECHO  :: Press any key to exit...
+
 PAUSE > NUL 2>&1
 GOTO :EOF
 )
@@ -22,7 +24,8 @@ GOTO :EOF
 	ECHO     This script deploys sfc.bat, renames sfc.exe, and modifies permissions for both
 	ECHO.
 	ECHO  :: Press any key to continue...
-	PAUSE > NUL
+	
+	PAUSE > NUL 2>&1
 	GOTO download
 
 :download
@@ -36,7 +39,9 @@ GOTO :EOF
 
 	CURL -L https://github.com/McNinjaTNT/AME-SFC-Modification-Script/releases/download/v1.0/sfc.bat --output %SYSTEMROOT%\System32\sfc.bat > NUL 2>&1
 	IF %ERRORLEVEL% EQU 0 (
+		
 		GOTO managePermissions
+
 	) ELSE (
 		
 		cls
@@ -45,6 +50,7 @@ GOTO :EOF
 		ECHO.	 A failure occured while attempting to download the script.
 		ECHO.
 		ECHO  :: Press any key to exit...
+		
 		PAUSE > NUL 2>&1
 		GOTO :EOF
 	)
@@ -78,5 +84,6 @@ GOTO :EOF
 	ECHO.	 Deployment is complete!
 	ECHO.
 	ECHO  :: Press any key to exit...
+	
 	PAUSE > NUL 2>&1
 	GOTO :EOF
