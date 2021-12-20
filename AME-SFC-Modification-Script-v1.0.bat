@@ -11,7 +11,7 @@ ECHO     You must run this script as Administrator
 ECHO.
 ECHO  :: Press any key to exit...
 PAUSE > NUL 2>&1
-GOTO EOF
+GOTO :EOF
 )
 
 :menu
@@ -46,7 +46,7 @@ GOTO EOF
 		ECHO.
 		ECHO  :: Press any key to exit...
 		PAUSE > NUL 2>&1
-		GOTO EOF
+		GOTO :EOF
 	)
 
 :managePermissions
@@ -79,4 +79,4 @@ GOTO EOF
 	ECHO.
 	ECHO  :: Press any key to exit...
 	PAUSE > NUL 2>&1
-	GOTO EOF
+	GOTO :EOF
