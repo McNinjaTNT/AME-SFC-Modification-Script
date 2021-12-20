@@ -34,7 +34,7 @@ IF %ERRORLEVEL% GTR 0 (
 		SET /p input=Enter "I know what I'm doing" to Confirm: 
 
 			IF "!input!"=="I know what I'm doing" GOTO scannowProcedure+SelfDestruction
-			IF "!input!"=="Cancel" GOTO end
+			IF "!input!"=="Cancel" GOTO :EOF
 		
 			ECHO.
 			ECHO Incorrect Input Entered.
