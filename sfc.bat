@@ -148,7 +148,7 @@ CMD /c "exit /b 0"
 
 		ECHO Windows Resource Protection found integrity violations.
 		ECHO For online repairs, details are included in the CBS log file located at
-        ECHO windir^\Logs^\CBS\CBS.log. For example C^:^\Windows^\Logs^\CBS^\CBS.log. For offline
+        	ECHO windir^\Logs^\CBS\CBS.log. For example C^:^\Windows^\Logs^\CBS^\CBS.log. For offline
 		ECHO repairs, details are included in the log file provided by the ^/OFFLOGFILE flag.
 
 		GOTO :EOF
