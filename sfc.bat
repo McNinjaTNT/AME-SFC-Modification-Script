@@ -1,6 +1,6 @@
 @ECHO OFF
 SETLOCAL ENABLEDELAYEDEXPANSION
-GOTO unknownResults
+
 :: This script is to prevent users from unknowingly entering sfc /scannow
 :: and causing de-amelioration
 
