@@ -59,7 +59,7 @@ IF %ERRORLEVEL% GTR 0 (
 		ECHO Verifying...
 		
 		:: %* is all the text entered after "sfc ".
-		sfc1 %*
+		sfc1 %* > NUL 2>&1
 
 		ECHO Windows Resource Protection found integrity violations.
 		ECHO For online repairs, details are included in the CBS log file located at
@@ -75,7 +75,7 @@ IF %ERRORLEVEL% GTR 0 (
 :incorrectSyntaxMessage
 	
 	CMD /c "exit /b 0"
-	sfc1 %*
+	sfc1 %* > NUL 2>&1
 	IF %ERRORLEVEL% GTR 0 (
 
 		ECHO.
@@ -130,6 +130,7 @@ IF %ERRORLEVEL% GTR 0 (
 	ECHO %var2% | FIND /i "%checkString%" > NUL 2>&1
 	IF %ERRORLEVEL% EQU 0 (
 	
+		ECHO.
 		ECHO Windows Resource Protection did not find any integrity violations.
 
 		GOTO :EOF
@@ -145,6 +146,7 @@ CMD /c "exit /b 0"
 	ECHO %var1% | FIND /i "%checkString%" > NUL 2>&1
 	IF %ERRORLEVEL% EQU 0 (
 
+		ECHO.
 		ECHO Windows Resource Protection found integrity violations.
 		ECHO For online repairs, details are included in the CBS log file located at
         	ECHO windir^\Logs^\CBS\CBS.log. For example C^:^\Windows^\Logs^\CBS^\CBS.log. For offline
@@ -159,6 +161,7 @@ CMD /c "exit /b 0"
 
 :unknownResults
 
+ECHO.
 ECHO Cannot output results. See %HOMEDRIVE%\Windows^\Logs^\CBS^\CBS.log for more details.
 
 GOTO :EOF
