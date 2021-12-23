@@ -79,8 +79,7 @@ IF %ERRORLEVEL% GTR 0 (
 	IF %ERRORLEVEL% GTR 0 (
 
 		ECHO.
-		ECHO Microsoft ^(R^) Windows ^(R^) Resource Checker Version 6.0
-		ECHO Copyright ^(C^) Microsoft Corporation. All rights reserved.
+		ECHO System File Checker
 		ECHO.
 		ECHO Scans the integrity of all protected system files and replaces incorrect versions with
 		ECHO correct Microsoft versions.
